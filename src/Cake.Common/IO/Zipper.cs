@@ -103,7 +103,7 @@ namespace Cake.Common.IO
                         // Create directory entry.
                         _log.Verbose("Storing directory {0}", absoluteDirectoryPath);
                         var directory = _fileSystem.GetDirectory(absoluteDirectoryPath);
-                        var entry = archive.CreateEntry(relativeDirectoryPath + "/");
+                        var entry = archive.CreateEntryFromFile(absoluteDirectoryPath.FullPath, relativeDirectoryPath + "/");
                         entry.LastWriteTime = (directory as Directory)?.LastWriteTime ?? DateTimeOffset.Now;
                         directories.Add(relativeDirectoryPath);
                     }
@@ -115,7 +115,7 @@ namespace Cake.Common.IO
                         var file = _fileSystem.GetFile(absoluteFilePath);
                         using (var fileStream = file.Open(FileMode.Open, FileAccess.Read, FileShare.Read))
                         {
-                            var entry = archive.CreateEntry(relativeFilePath);
+                            var entry = archive.CreateEntryFromFile(absoluteFilePath.FullPath, relativeFilePath);
                             entry.LastWriteTime = (file as File)?.LastWriteTime ?? DateTimeOffset.Now;
                             using (var entryStream = entry.Open())
                             {
@@ -176,7 +176,7 @@ namespace Cake.Common.IO
                         // Create directory entry.
                         _log.Verbose("Storing directory {0}", absoluteDirectoryPath);
                         var directory = _fileSystem.GetDirectory(absoluteDirectoryPath);
-                        var entry = archive.CreateEntry(relativeDirectoryPath + "/");
+                        var entry = archive.CreateEntryFromFile(absoluteDirectoryPath.FullPath, relativeDirectoryPath + "/");
                         entry.LastWriteTime = GetValidZipDateTimeOffset((directory as Directory)?.LastWriteTime);
                         directories.Add(relativeDirectoryPath);
                     }
@@ -186,7 +186,7 @@ namespace Cake.Common.IO
                     var file = _fileSystem.GetFile(absoluteFilePath);
                     using (var fileStream = file.Open(FileMode.Open, FileAccess.Read, FileShare.Read))
                     {
-                        var entry = archive.CreateEntry(relativeFilePath);
+                        var entry = archive.CreateEntryFromFile(absoluteFilePath.FullPath, relativeFilePath);
                         entry.LastWriteTime = GetValidZipDateTimeOffset((file as File)?.LastWriteTime);
                         using (var entryStream = entry.Open())
                         {
