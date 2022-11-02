@@ -38,7 +38,7 @@ Task("Cake.Common.Build.GitHubActionsProvider.Commands.Group")
     .Does(() => {
         // When
         GitHubActions.Commands.StartGroup("Cake group");
-        System.Console.WriteLine("This is inside a group");
+        Console.WriteLine("This is inside a group");
         GitHubActions.Commands.EndGroup();
 });
 
@@ -49,7 +49,7 @@ Task("Cake.Common.Build.GitHubActionsProvider.Commands.SetSecret")
 
         // When
         GitHubActions.Commands.SetSecret(secret);
-        Information("This is secret: {0}", secret);
+        Console.WriteLine("This is secret: {0}", secret);
 });
 
 Task("Cake.Common.Build.GitHubActionsProvider.Commands.AddPath")
